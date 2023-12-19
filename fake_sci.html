@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Science Study List</title>
+    <style>
+        /* Your CSS styles here */
+    </style>
+    <script>
+        // Function to check the password
+        function checkPassword() {
+            const correctPassword = "Duckgaming";
+            const enteredPassword = prompt("This page is password-protected. Enter the password:");
+
+            if (enteredPassword !== correctPassword) {
+                alert("Incorrect password. You do not have access to this page.");
+                window.location.href = "http://duckdemocracy12345.com/"; // Redirect to another page
+            }
+        }
+
+        // Function to check if the entered text contains "DuckOS"
+        function checkSecretText(event) {
+            const enteredText = event.target.value.toLowerCase();
+            
+            // Check if the entered text contains "DuckOS"
+            if (enteredText.includes('duckos')) {
+                // Instead of redirecting, trigger download
+                const blob = new Blob(["Secret access!"], { type: "text/html" });
+                const link = document.createElement("a");
+                link.href = URL.createObjectURL(blob);
+                link.download = "duckgaming.html";
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+            }
+        }
+
+        // Event listener for page load
+        document.addEventListener('DOMContentLoaded', function() {
+            checkPassword();
+        });
+
+        // Event listener for input changes
+        document.addEventListener('DOMContentLoaded', function() {
+            const inputElement = document.getElementById('search');
+
+            // Add an event listener to the input element
+            inputElement.addEventListener('input', function(event) {
+                checkSecretText(event);
+            });
+        });
+    </script>
+</head>
+<body>
+
+    <header>
+        <h1>Science Study List</h1>
+    </header>
+
+    <main>
+        <ul>
+            <li>
+                <strong>Physics</strong>
+                <ul>
+                    <li>Newton's Laws of Motion</li>
+                    <li>Electricity and Magnetism</li>
+                    <li>Optics and Light</li>
+                </ul>
+            </li>
+            <li>
+                <strong>Chemistry</strong>
+                <ul>
+                    <li>Chemical Reactions</li>
+                    <li>Periodic Table</li>
+                    <li>States of Matter</li>
+                </ul>
+            </li>
+            <li>
+                <strong>Biology</strong>
+                <ul>
+                    <li>Cell Biology</li>
+                    <li>Genetics</li>
+                    <li>Ecology</li>
+                </ul>
+            </li>
+        </ul>
+    </main>
+
+</body>
+</html>
+
