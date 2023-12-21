@@ -3,6 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Ensure your website uses HTTPS -->
+<meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+<!-- Example HSTS header -->
+<meta http-equiv="Strict-Transport-Security" content="max-age=31536000; includeSubDomains; preload">
+<!-- Example CORS header -->
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://trusteddomain.com;">
+<!-- Example CSP header -->
+<meta http-equiv="Content-Security-Policy" content="default-src 'self';">
+<!-- Example X-Frame-Options header with DENY value -->
+<meta http-equiv="X-Frame-Options" content="DENY">
+
     <title>Duck Gaming (dev)</title>
     <style>
         /* Your CSS styles here */
