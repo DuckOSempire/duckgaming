@@ -3,86 +3,39 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Ensure your website uses HTTPS -->
-    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
-
-    <!-- Example HSTS header -->
+    <meta http-equiv="Content-Security-Policy" content="
+        default-src 'self';
+        script-src 'self' https://pagead2.googlesyndication.com;
+        upgrade-insecure-requests;
+    ">
     <meta http-equiv="Strict-Transport-Security" content="max-age=31536000; includeSubDomains; preload">
-
-    <!-- Example CORS header -->
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://trusteddomain.com;">
-
-    <!-- Example CSP header -->
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self';">
-
-    <!-- Example X-Frame-Options header with DENY value -->
-
-  <meta http-equiv="X-Frame-Options" content="ALLOW-FROM https://https://thankful-pebble-0b8a88f10.4.azurestaticapps.net">
-
-    <title>Duck Gaming (dev)</title>
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2998460619613777"
-     crossorigin="anonymous"></script>
+    <meta http-equiv="X-Frame-Options" content="ALLOW-FROM https://thankful-pebble-0b8a88f10.4.azurestaticapps.net">
     
     <title>Duck Gaming (dev)</title>
+
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2998460619613777"
+     crossorigin="anonymous"></script>
+
     <style>
         /* Your CSS styles here */
     </style>
+
     <script>
-       document.addEventListener('DOMContentLoaded', function() {
-        const feedbackForm = document.getElementById('feedbackForm');
-
-        if (feedbackForm) {
-            feedbackForm.addEventListener('submit', function(event) {
-                event.preventDefault();
-
-                // Logic to handle form submission (e.g., send data to a server)
-                const formData = new FormData(event.target);
-                for (const [key, value] of formData.entries()) {
-                    console.log(`${key}: ${value}`);
-                }
-
-                // Optionally, you can clear the form after submission.
-                event.target.reset();
-            });
-        }
-    });
-        
-        
-        
-        
-        
-        // Function to check the password
-        function checkPassword() {
-            const correctPassword = "Duckgaming";
-            const enteredPassword = prompt("This page is password-protected. Enter the password:");
-
-            if (enteredPassword !== correctPassword) {
-                alert("Incorrect password. You do not have access to this page.");
-                window.location.href = "http://duckdemocracy12345.com/"; // Redirect to another page
-            }
-        }
-
-        // Function to check if the entered text contains "DuckOS"
-        function checkSecretText(event) {
-            const enteredText = event.target.value.toLowerCase();
-            
-            // Check if the entered text contains "DuckOS"
-            if (enteredText.includes('duckos')) {
-                // Instead of redirecting, trigger download
-                const blob = new Blob(["Secret access!"], { type: "text/html" });
-                const link = document.createElement("a");
-                link.href = URL.createObjectURL(blob);
-                link.download = "duckgaming.html";
-                document.body.appendChild(link);
-                link.click();
-                document.body.removeChild(link);
-            }
-        }
-
         document.addEventListener('DOMContentLoaded', function() {
             checkPassword();
-            
-            // Add an event listener to the input element with id 'search'
+
+            const feedbackForm = document.getElementById('feedbackForm');
+            if (feedbackForm) {
+                feedbackForm.addEventListener('submit', function(event) {
+                    event.preventDefault();
+                    const formData = new FormData(event.target);
+                    for (const [key, value] of formData.entries()) {
+                        console.log(`${key}: ${value}`);
+                    }
+                    event.target.reset();
+                });
+            }
+
             const inputElement = document.getElementById('search');
             if (inputElement) {
                 inputElement.addEventListener('input', function(event) {
@@ -91,29 +44,16 @@
             }
         });
 
-        // Event listener for form submission
-        document.addEventListener('DOMContentLoaded', function() {
-            const feedbackForm = document.getElementById('feedbackForm');
+        function checkPassword() {
+            // Your password checking logic here
+        }
 
-            if (feedbackForm) {
-                feedbackForm.addEventListener('submit', function(event) {
-                    event.preventDefault();
-
-                    // Logic to handle form submission (e.g., send data to a server)
-                    const formData = new FormData(event.target);
-                    for (const [key, value] of formData.entries()) {
-                        console.log(`${key}: ${value}`);
-                    }
-
-                    // Optionally, you can clear the form after submission.
-                    event.target.reset();
-                });
-            }
-        });
+        function checkSecretText(event) {
+            // Your secret text checking logic here
+        }
     </script>
 </head>
 <body>
-
     <header>
         <h1>Duck Gaming (dev)</h1>
         <h2>Please send feedback on which games you would like to see on here.</h2>
@@ -121,18 +61,8 @@
 
     <main>
         <form id="feedbackForm">
-            <label for="name">Your Name:</label>
-            <input type="text" id="name" name="name" required>
-
-            <label for="email">Your Email:</label>
-            <input type="email" id="email" name="email" required>
-
-            <label for="message">Feedback:</label>
-            <textarea id="message" name="message" required></textarea>
-
-            <button type="submit">Submit Feedback</button>
+            <!-- Your form content here -->
         </form>
     </main>
-
 </body>
 </html>
