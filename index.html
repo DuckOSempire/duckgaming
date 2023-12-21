@@ -26,6 +26,29 @@
         /* Your CSS styles here */
     </style>
     <script>
+       document.addEventListener('DOMContentLoaded', function() {
+        const feedbackForm = document.getElementById('feedbackForm');
+
+        if (feedbackForm) {
+            feedbackForm.addEventListener('submit', function(event) {
+                event.preventDefault();
+
+                // Logic to handle form submission (e.g., send data to a server)
+                const formData = new FormData(event.target);
+                for (const [key, value] of formData.entries()) {
+                    console.log(`${key}: ${value}`);
+                }
+
+                // Optionally, you can clear the form after submission.
+                event.target.reset();
+            });
+        }
+    });
+        
+        
+        
+        
+        
         // Function to check the password
         function checkPassword() {
             const correctPassword = "Duckgaming";
