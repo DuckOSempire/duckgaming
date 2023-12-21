@@ -4,35 +4,25 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Ensure your website uses HTTPS -->
-<meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
-<!-- Example HSTS header -->
-<meta http-equiv="Strict-Transport-Security" content="max-age=31536000; includeSubDomains; preload">
-<!-- Example CORS header -->
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://trusteddomain.com;">
-<!-- Example CSP header -->
-<meta http-equiv="Content-Security-Policy" content="default-src 'self';">
-<!-- Example X-Frame-Options header with DENY value -->
-<meta http-equiv="X-Frame-Options" content="DENY">
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+
+    <!-- Example HSTS header -->
+    <meta http-equiv="Strict-Transport-Security" content="max-age=31536000; includeSubDomains; preload">
+
+    <!-- Example CORS header -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://trusteddomain.com;">
+
+    <!-- Example CSP header -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self';">
+
+    <!-- Example X-Frame-Options header with DENY value -->
+    <meta http-equiv="X-Frame-Options" content="DENY">
 
     <title>Duck Gaming (dev)</title>
     <style>
         /* Your CSS styles here */
     </style>
     <script>
-         document.getElementById('feedbackForm').addEventListener('submit', function(event) {
-      event.preventDefault();
-
-      // You can add logic here to handle the form submission, e.g., send data to a server or perform some action.
-      // For simplicity, let's log the form data to the console.
-      const formData = new FormData(event.target);
-      for (const [key, value] of formData.entries()) {
-        console.log(`${key}: ${value}`);
-      }
-
-      // Optionally, you can clear the form after submission.
-      event.target.reset();
-    });
-        
         // Function to check the password
         function checkPassword() {
             const correctPassword = "Duckgaming";
@@ -61,19 +51,36 @@
             }
         }
 
-        // Event listener for page load
         document.addEventListener('DOMContentLoaded', function() {
             checkPassword();
+            
+            // Add an event listener to the input element with id 'search'
+            const inputElement = document.getElementById('search');
+            if (inputElement) {
+                inputElement.addEventListener('input', function(event) {
+                    checkSecretText(event);
+                });
+            }
         });
 
-        // Event listener for input changes
+        // Event listener for form submission
         document.addEventListener('DOMContentLoaded', function() {
-            const inputElement = document.getElementById('search');
+            const feedbackForm = document.getElementById('feedbackForm');
 
-            // Add an event listener to the input element
-            inputElement.addEventListener('input', function(event) {
-                checkSecretText(event);
-            });
+            if (feedbackForm) {
+                feedbackForm.addEventListener('submit', function(event) {
+                    event.preventDefault();
+
+                    // Logic to handle form submission (e.g., send data to a server)
+                    const formData = new FormData(event.target);
+                    for (const [key, value] of formData.entries()) {
+                        console.log(`${key}: ${value}`);
+                    }
+
+                    // Optionally, you can clear the form after submission.
+                    event.target.reset();
+                });
+            }
         });
     </script>
 </head>
@@ -81,25 +88,23 @@
 
     <header>
         <h1>Duck Gaming (dev)</h1>
-        <h2> Please send feedback on which games you would like to see on here.</h2>
+        <h2>Please send feedback on which games you would like to see on here.</h2>
     </header>
 
     <main>
- <form id="feedbackForm">
-    <label for="name">Your Name:</label>
-    <input type="text" id="name" name="name" required>
+        <form id="feedbackForm">
+            <label for="name">Your Name:</label>
+            <input type="text" id="name" name="name" required>
 
-    <label for="email">Your Email:</label>
-    <input type="email" id="email" name="email" required>
+            <label for="email">Your Email:</label>
+            <input type="email" id="email" name="email" required>
 
-    <label for="message">Feedback:</label>
-    <textarea id="message" name="message" required></textarea>
+            <label for="message">Feedback:</label>
+            <textarea id="message" name="message" required></textarea>
 
-    <button type="submit">Submit Feedback</button>
-  </form>
-        
+            <button type="submit">Submit Feedback</button>
+        </form>
     </main>
 
 </body>
 </html>
-
