@@ -3,18 +3,39 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="Content-Security-Policy" content="
-        default-src 'self';
-        script-src 'self' https://pagead2.googlesyndication.com;
-        upgrade-insecure-requests;
-    ">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self' https://pagead2.googlesyndication.com; style-src 'self' 'unsafe-inline';">
+
     <meta http-equiv="Strict-Transport-Security" content="max-age=31536000; includeSubDomains; preload">
     <meta http-equiv="X-Frame-Options" content="ALLOW-FROM https://thankful-pebble-0b8a88f10.4.azurestaticapps.net">
     
     <title>Duck Gaming (dev)</title>
 
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2998460619613777"
-     crossorigin="anonymous"></script>
+     <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            checkPassword();
+
+            const feedbackForm = document.getElementById('feedbackForm');
+            if (feedbackForm) {
+                feedbackForm.addEventListener('submit', function(event) {
+                    event.preventDefault();
+                    const formData = new FormData(event.target);
+                    for (const [key, value] of formData.entries()) {
+                        console.log(`${key}: ${value}`);
+                    }
+                    event.target.reset();
+                });
+            }
+
+            const inputElement = document.getElementById('search');
+            if (inputElement) {
+                inputElement.addEventListener('input', function(event) {
+                    checkSecretText(event);
+                });
+            }
+        });
+
+     
+    </script>
 
     <style>
         /* Your CSS styles here */
