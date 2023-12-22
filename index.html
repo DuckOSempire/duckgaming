@@ -20,41 +20,7 @@
         /* Your CSS styles here */
     </style>
 
-    <script>
-       function goToSite1() {
-            window.location.href = 'https://thankful-pebble-0b8a88f10.4.azurestaticapps.net/chatroom_v1.1.html';
-        }
-
-        function goToSite2() {
-            window.location.href = 'https://thankful-pebble-0b8a88f10.4.azurestaticapps.net/eaglercraft.1.5.2..html';
-        }
-        
-        
-        document.addEventListener('DOMContentLoaded', function() {
-            checkPassword();
-
-            const feedbackForm = document.getElementById('feedbackForm');
-            if (feedbackForm) {
-                feedbackForm.addEventListener('submit', function(event) {
-                    event.preventDefault();
-                    const formData = new FormData(event.target);
-                    for (const [key, value] of formData.entries()) {
-                        console.log(`${key}: ${value}`);
-                    }
-                    event.target.reset();
-                });
-            }
-
-            const inputElement = document.getElementById('search');
-            if (inputElement) {
-                inputElement.addEventListener('input', function(event) {
-                    checkSecretText(event);
-                });
-            }
-        });
-
-     
-    </script>
+  <script src="script.js" defer></script>
 </head>
 <body>
     <header>
