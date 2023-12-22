@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self' https://pagead2.googlesyndication.com; style-src 'self' 'unsafe-inline';">
+  <title>Tetris</title>
+</head>
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+  const canvas = document.getElementById("tetrisCanvas");
+  const context = canvas.getContext("2d");
+
+  const ROWS = 20;
+  const COLS = 10;
+  const BLOCK_SIZE = 30;
+  const EMPTY = "white";
+  const colors = ["cyan", "blue", "orange", "yellow", "green", "purple", "red"];
+
+  let board = createBoard();
+  let currentPiece;
+  let currentPieceColor;
+
+  function createBoard() {
+    return Array.from({ length: ROWS }, () => Array(COLS).fill(EMPTY));
+  }
+
+  function drawBoard() {
+    context.clearRect(0, 0, canvas.width, canvas.height);
+    board.forEach((row, i) => {
+      row.forEach((cell, j) => {
+        drawBlock(j, i, cell);
+      });
+    });
+  }
+
+  function drawBlock(x, y, color) {
+    context.fillStyle = color;
+    context.fillRect(x * BLOCK_SIZE, y * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE);
+    context.strokeStyle = "#333";
+    context.strokeRect(x * BLOCK_SIZE, y * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE);
+  }
+
+  function drawCurrentPiece() {
+    currentPiece.forEach((row, i) => {
+      row.forEach((cell, j) => {
+        if (cell) {
+          drawBlock(currentPiece.x + j, currentPiece.y + i, currentPieceColor);
+        }
+      });
+    });
+  }
+
+  function rotate(piece) {
+    const rotated = piece.map((row, i) => piece.map(col => piece[col][i])).reverse();
+    piece.length = 0;
+    piece.push(...rotated);
+  }
+
+  function isValidMove(piece, offsetX, offsetY) {
+    for (let i = 0; i < piece.length; i++) {
+      for (let j = 0; j < piece[i].length; j++) {
+        if (piece[i][j]) {
+          const newX = currentPiece.x + j + offsetX;
+          const newY = currentPiece.y + i + offsetY;
+          if (newX < 0 || newX >= COLS || newY >= ROWS || board[newY][newX] !== EMPTY) {
+            return false;
+          }
+        }
+      }
+    }
+    return true;
+  }
+
+  function mergePiece() {
+    currentPiece.forEach((row, i) => {
+      row.forEach((cell, j) => {
+        if (cell) {
+          const boardX = currentPiece.x + j;
+          const boardY = currentPiece.y + i;
+          board[boardY][boardX] = currentPieceColor;
+        }
+      });
+    });
+  }
+
+  function clearLines() {
+    for (let i = ROWS - 1; i >= 0; i--) {
+      if (board[i].every(cell => cell !== EMPTY)) {
+        board.splice(i, 1);
+        board.unshift(Array(COLS).fill(EMPTY));
+      }
+    }
+  }
+
+  function spawnPiece() {
+    const randomIndex = Math.floor(Math.random() * colors.length);
+    currentPiece = tetrominoes[randomIndex].shape;
+    currentPieceColor = colors[randomIndex];
+    currentPiece.x = Math.floor((COLS - currentPiece[0].length) / 2);
+    currentPiece.y = 0;
+
+    if (!isValidMove(currentPiece, 0, 0)) {
+      // Game over
+      alert("Game Over!");
+      board = createBoard();
+    }
+  }
+
+  function moveDown() {
+    if (isValidMove(currentPiece, 0, 1)) {
+      currentPiece.y += 1;
+    } else {
+      mergePiece();
+      clearLines();
+      spawnPiece();
+    }
+  }
+
+  function moveLeft() {
+    if (isValidMove(currentPiece, -1, 0)) {
+      currentPiece.x -= 1;
+    }
+  }
+
+  function moveRight() {
+    if (isValidMove(currentPiece, 1, 0)) {
+      currentPiece.x += 1;
+    }
+  }
+
+  function handleKeyPress(event) {
+    switch (event.key) {
+      case "ArrowUp":
+        rotate(currentPiece);
+        if (!isValidMove(currentPiece, 0, 0)) {
+          // Revert the rotation if it's not valid
+          rotate(currentPiece);
+          rotate(currentPiece);
+          rotate(currentPiece);
+        }
+        break;
+      case "ArrowDown":
+        moveDown();
+        break;
+      case "ArrowLeft":
+        moveLeft();
+        break;
+      case "ArrowRight":
+        moveRight();
+        break;
+    }
+  }
+
+  document.addEventListener("keydown", handleKeyPress);
+
+  function update() {
+    drawBoard();
+    drawCurrentPiece();
+  }
+
+  function gameLoop() {
+    update();
+    moveDown();
+    requestAnimationFrame(gameLoop);
+  }
+
+  spawnPiece();
+  gameLoop();
+});
+</script>
+
+  <style>
+  body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  margin: 0;
+  background-color: #f0f0f0;
+}
+
+.game-container {
+  border: 2px solid #333;
+}
+</style>
+  
+<body>
+  <div class="game-container">
+    <canvas id="tetrisCanvas" width="300" height="600"></canvas>
+  </div>
+
+</body>
+</html>
