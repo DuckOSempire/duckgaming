@@ -21,6 +21,15 @@
     </style>
 
     <script>
+       function goToSite1() {
+            window.location.href = 'https://thankful-pebble-0b8a88f10.4.azurestaticapps.net/chatroom_v1.1.html';
+        }
+
+        function goToSite2() {
+            window.location.href = 'https://thankful-pebble-0b8a88f10.4.azurestaticapps.net/eaglercraft.1.5.2..html';
+        }
+        
+        
         document.addEventListener('DOMContentLoaded', function() {
             checkPassword();
 
@@ -67,6 +76,11 @@
 
             <button type="submit">Submit Feedback</button>
         </form>
+         <button onclick="goToSite1()">Visit the chat</button>
+
+    <!-- Button 2 -->
+    <button onclick="goToSite2()">Visit Minecraft</button>
+
         
     </main>
 </body>
